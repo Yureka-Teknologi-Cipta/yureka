@@ -26,7 +26,7 @@ func (slice Ints64) Include(value int64) bool {
 	return false
 }
 
-func (slice Ints) Unique() Ints {
+func (slice Ints) Unique() []int {
 	unique := Ints{}
 	for _, v := range slice {
 		if !unique.Include(v) {
@@ -37,7 +37,7 @@ func (slice Ints) Unique() Ints {
 	return unique
 }
 
-func (slice Ints64) Unique() Ints64 {
+func (slice Ints64) Unique() []int64 {
 	unique := Ints64{}
 	for _, v := range slice {
 		if !unique.Include(v) {

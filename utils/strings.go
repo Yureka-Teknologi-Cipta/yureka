@@ -16,7 +16,7 @@ func (slice Strings) Include(value string) bool {
 	return false
 }
 
-func (slice Strings) Unique() Strings {
+func (slice Strings) Unique() []string {
 	unique := Strings{}
 	for _, v := range slice {
 		if !unique.Include(v) {
