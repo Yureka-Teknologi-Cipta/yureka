@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 )
 
 func Connect(timeout time.Duration, URI, dbName string) *mongo.Database {
@@ -16,13 +17,7 @@ func Connect(timeout time.Duration, URI, dbName string) *mongo.Database {
 
 	clientOptions := options.Client()
 	clientOptions.ApplyURI(URI)
-	client, err := mongo.NewClient(clientOptions)
-	if err != nil {
-		fmt.Println(err)
-		panic(err)
-	}
-
-	err = client.Connect(ctx)
+	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
@@ -32,6 +27,11 @@ func Connect(timeout time.Duration, URI, dbName string) *mongo.Database {
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
+	}
+
+	if dbName == "" {
+		connString, _ := connstring.Parse(URI)
+		dbName = connString.Database
 	}
 
 	return client.Database(dbName)
