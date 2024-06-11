@@ -1,4 +1,4 @@
-package postgres
+package yureka_postgres
 
 import (
 	"context"

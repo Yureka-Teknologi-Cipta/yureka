@@ -1,4 +1,4 @@
-package redis
+package yureka_redis
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package mongodb
+package yureka_mongodb
 
 import (
 	"context"
