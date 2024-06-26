@@ -8,12 +8,19 @@ import (
 )
 
 func Connect(timeout time.Duration, dbURL string) *redis.Client {
-	_, cancel := context.WithTimeout(context.Background(), timeout)
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
 	opts, err := redis.ParseURL(dbURL)
 	if err != nil {
 		panic(err)
 	}
-	return redis.NewClient(opts)
+
+	client := redis.NewClient(opts)
+
+	if ping := client.Ping(ctx); ping.Err() != nil {
+		panic(ping.Err())
+	}
+
+	return client
 }
