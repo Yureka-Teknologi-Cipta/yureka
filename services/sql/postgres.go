@@ -4,15 +4,15 @@ import (
 	"context"
 	"time"
 
+	_ "github.com/jackc/pgx/v5"
 	"github.com/jmoiron/sqlx"
-	_ "github.com/lib/pq"
 )
 
 func ConnectPostgres(timeout time.Duration, dbURL string) *sqlx.DB {
 	_, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	db, err := sqlx.Open("postgres", dbURL)
+	db, err := sqlx.Open("pgx", dbURL)
 	if err != nil {
 		panic("Cannot connect to database: " + err.Error())
 	}
