@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"time"
 
-	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/microsoft/go-mssqldb"
 )
 
 // ConnectMSSQL connects to SQL Server database using sqlx and returns the connection.
